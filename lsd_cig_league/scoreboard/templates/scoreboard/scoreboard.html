@@ -1,0 +1,47 @@
+{% load static %}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cig League Scoreboard</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Cig League Scoreboard</h1>
+
+    <div class="admin_div">
+        <a href="/admin" class="admin-button">Admin</a>
+    </div>
+    
+
+    <table>
+        <tr>
+            <th>Event</th>
+            {% for participant in participants %}
+                <th>{{ participant.name }}</th>
+            {% endfor %}
+        </tr>
+        
+        {% for row in scoreboard %}
+        <tr>
+            <td>{{ row.event }}</td>
+            {% for participant in participants %}
+                <td>{{ row|dict_lookup:participant.name }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        
+        <tr>
+            <th>Total</th>
+            {% for participant in participants %}
+                <td>{{ participant_totals|dict_lookup:participant.name }}</td>
+            {% endfor %}
+        </tr>
+    </table>
+</body>
+</html>
+
+      
+
+
